@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"math"
+
+	"github.com/danielwangai/dp/utils"
 )
 
 func lcs(str1, str2 string) int {
@@ -10,7 +12,11 @@ func lcs(str1, str2 string) int {
 	// return lcsRecursive(str1, str2, 0, 0)
 
 	// memoized
-	memo := initMemo(len(str1), len(str2))
+	s := utils.Strings{
+		Str1: str1,
+		Str2: str2,
+	}
+	memo := s.Array2D(len(str1), len(str2))
 	return lcsMemo(str1, str2, 0, 0, memo)
 
 	// bottom up approach - TODO
@@ -20,30 +26,33 @@ func lcs(str1, str2 string) int {
 
 // recursive approach
 func lcsRecursive(str1, str2 string, pos1, pos2 int) int {
-	if pos1 >= len(str1) - 1 || pos2 >= len(str2) - 1 {
+	if pos1 >= len(str1)-1 || pos2 >= len(str2)-1 {
 		return 0
 	}
 	if string(str1[pos1]) == string(str2[pos2]) {
-		return 1 + lcsRecursive(str1, str2, pos1 + 1, pos2 + 1)
+		return 1 + lcsRecursive(str1, str2, pos1+1, pos2+1)
 	}
 	return int(
 		math.Max(
-			float64(lcsRecursive(str1, str2, pos1 + 1, pos2)),
-			float64(lcsRecursive(str1, str2, pos1 + 1, pos2))))
+			float64(lcsRecursive(str1, str2, pos1+1, pos2)),
+			float64(lcsRecursive(str1, str2, pos1+1, pos2))))
 }
 
 func lcsMemo(len1, len2 string, pos1, pos2 int, memo [][]int) int {
-	if pos1 >= len(len1) - 1 || pos2 >= len(len2) - 1 {
+	if memo[pos1][pos2] != 0 {
+		return memo[pos1][pos2]
+	}
+	if pos1 >= len(len1)-1 || pos2 >= len(len2)-1 {
 		return 0
 	}
 	if string(len1[pos1]) == string(len2[pos2]) {
-		memo[pos1][pos2] = 1 + lcsMemo(len1, len2, pos1 + 1, pos2 + 1, memo)
+		memo[pos1][pos2] = 1 + lcsMemo(len1, len2, pos1+1, pos2+1, memo)
 		return memo[pos1][pos2]
 	}
 	memo[pos1][pos2] = int(
 		math.Max(
-			float64(lcsMemo(len1, len2, pos1 + 1, pos2, memo)),
-			float64(lcsMemo(len1, len2, pos1 + 1, pos2, memo))))
+			float64(lcsMemo(len1, len2, pos1+1, pos2, memo)),
+			float64(lcsMemo(len1, len2, pos1+1, pos2, memo))))
 	return memo[pos1][pos2]
 }
 
@@ -75,18 +84,8 @@ func lcsBottomUp(str1, str2 string, memo [][]int) int {
 }
 */
 
-// helper method to initialize a 2D array
-func initMemo(len1, len2 int) [][]int {
-	outer := make([][]int, 0)
-	inner := make([]int, len1)
-	for i := 0; i < len2; i++ {
-		outer = append(outer, inner)
-	}
-	return outer
-}
-
 func main() {
 	//fmt.Println(lcs("abaacfdee", "aaabceed"))
 	//var memo map[[2]int]int
-	fmt.Println(lcs("abaacfdee", "aabaaceed"))
+	fmt.Println(lcs("abaac", "aabaa"))
 }
