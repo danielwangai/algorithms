@@ -6,7 +6,53 @@ import (
 )
 
 func minimumCoinsUsed(amt int, coins []int) int {
-	return bottomUp(amt, coins)
+	//return bottomUp(amt, coins)
+	return len(minCoinsRecursive(amt, coins))
+}
+
+func minCoinsRecursive(amt int, coins []int) []int {
+	if amt == 0 {
+		return []int{}
+	}
+	if amt < 0 {
+		return nil
+	}
+	var count []int
+	for _, c := range coins {
+		rem := amt - c
+		remCombo := minCoinsRecursive(rem, coins)
+		if remCombo != nil {
+			remCombo = append(remCombo, c)
+			if count == nil || len(remCombo) < len(count) {
+				count = remCombo
+			}
+		}
+	}
+	return count
+}
+
+func minCoinsMemoized(amt int, coins []int, memo map[int][]int) []int {
+	if _, ok := memo[amt]; ok {
+		return memo[amt]
+	}
+	if amt == 0 {
+		return []int{}
+	}
+	if amt < 0 {
+		return nil
+	}
+	var minCoins []int
+	for _, c := range coins {
+		rem := amt - c
+		remCombo := minCoinsMemoized(rem, coins, memo)
+		if remCombo != nil {
+			remCombo = append(remCombo, c)
+			if minCoins == nil || len(remCombo) < len(minCoins) {
+				minCoins = remCombo
+			}
+		}
+	}
+	return minCoins
 }
 
 func bottomUp(amt int, coins []int) int {
@@ -58,4 +104,6 @@ func generateArray(n int) []int {
 
 func main() {
 	fmt.Println(minimumCoinsUsed(11, []int{5, 2, 1}))
+	fmt.Println(minCoinsRecursive(7, []int{5, 4, 3, 7}))
+	fmt.Println(minCoinsMemoized(7, []int{5, 4, 3, 7}, map[int][]int{}))
 }
