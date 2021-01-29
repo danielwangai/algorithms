@@ -1,4 +1,4 @@
-package main
+package dp
 
 import "fmt"
 
@@ -56,7 +56,7 @@ func bottomUp(n int, memo map[int]int) int {
 	return memo[n]
 }
 
-func main() {
+func TripleStepExamples() {
 	fmt.Println(tripleStepRecursive(3))
 	fmt.Println(tripleStepMemo(3, map[int]int{}))
 	fmt.Println(bottomUp(3, map[int]int{}))

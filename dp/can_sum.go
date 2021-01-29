@@ -1,4 +1,4 @@
-package main
+package dp
 
 import "fmt"
 
@@ -14,7 +14,7 @@ import "fmt"
 // There can also ne repeated calculations of the same problem
 // space complexity: O(m):- because in the worst case if there exists and element 1 in the nums array,
 // in order reduce the sum value progressively to zero, this will be done m times
-func canSum(sum int, nums []int) bool {
+func CanSum(sum int, nums []int) bool {
 	if sum == 0 {
 		return true
 	}
@@ -23,7 +23,7 @@ func canSum(sum int, nums []int) bool {
 	}
 	for _, v := range nums {
 		rem := sum - v
-		if canSum(rem, nums) == true {
+		if CanSum(rem, nums) == true {
 			return true
 		}
 	}
@@ -36,7 +36,7 @@ func canSum(sum int, nums []int) bool {
 // calculations
 // space complexity: O(m):- because in the worst case if there exists and element 1 in the nums array,
 // in order reduce the sum value progressively to zero, this will be done m times
-func canSumMemo(sum int, nums []int, memo map[int]bool) bool {
+func CanSumMemo(sum int, nums []int, memo map[int]bool) bool {
 	if _, ok := memo[sum]; ok {
 		return memo[sum]
 	}
@@ -48,7 +48,7 @@ func canSumMemo(sum int, nums []int, memo map[int]bool) bool {
 	}
 	for _, v := range nums {
 		rem := sum - v
-		if canSumMemo(rem, nums, memo) == true {
+		if CanSumMemo(rem, nums, memo) == true {
 			memo[rem] = true
 			return true
 		}
@@ -57,12 +57,12 @@ func canSumMemo(sum int, nums []int, memo map[int]bool) bool {
 	return false
 }
 
-func main() {
+func CanSumExamples() {
 	// recursive
-	fmt.Println(canSum(7, []int{5, 4, 3, 7}))
-	fmt.Println(canSum(200, []int{7, 14}))
+	fmt.Println(CanSum(7, []int{5, 4, 3, 7}))
+	fmt.Println(CanSum(200, []int{7, 14}))
 
 	// memoized
-	fmt.Println(canSumMemo(7, []int{5, 4, 3, 7}, map[int]bool{}))
-	fmt.Println(canSumMemo(200, []int{7, 14}, map[int]bool{}))
+	fmt.Println(CanSumMemo(7, []int{5, 4, 3, 7}, map[int]bool{}))
+	fmt.Println(CanSumMemo(200, []int{7, 14}, map[int]bool{}))
 }

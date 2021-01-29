@@ -1,8 +1,8 @@
-package main
+package dp
 
 import (
 	"fmt"
-	"math"
+	"github.com/danielwangai/algorithms/dp/utils"
 )
 
 // given an array of integers, return the longest increasing subsequence
@@ -11,27 +11,26 @@ import (
 // return 3 since {10, 55, 98} is the longest increasing subsequence
 func longestIncreasingSubsequence(arr []int) int {
 	// array to store the result
-	var lis []int
+	var res []int
 	for i := 0; i < len(arr); i++ {
-		lis = append(lis, 1)
+		res = append(res, 1)
 	}
 	for i := 1; i < len(arr); i++ {
 		for j := 0; j < i; j++ {
 			if arr[i] > arr[j] {
-				sum := lis[j] + 1
-				lis[i] = int(math.Max(float64(sum), float64(lis[i])))
+				res[i] = utils.Max(res[j] + 1, res[i])
 			}
 		}
 	}
 	max := 0
-	for i := 0; i < len(lis); i++ {
-		if lis[i] > max {
-			max = lis[i]
+	for i := 0; i < len(res); i++ {
+		if res[i] > max {
+			max = res[i]
 		}
 	}
 	return max
 }
 
-func main() {
+func LISExamples() {
 	fmt.Println(longestIncreasingSubsequence([]int{10, 9, 55, 7, 98}))
 }

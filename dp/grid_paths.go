@@ -1,8 +1,8 @@
-package main
+package dp
 
 import "fmt"
 
-func isPath(grid [][]int) bool {
+func IsPath(grid [][]int) bool {
 	if len(grid) == 0 {
 		return false
 	}
@@ -29,7 +29,7 @@ func isPathHelper(grid [][]int, row int, col int) bool {
 }
 
 // total number of ways to bottom right
-func pathCountRecursive(grid [][]int, row, col int) int {
+func PathCountRecursive(grid [][]int, row, col int) int {
 	// base case
 	if row == len(grid)-1 && col == len(grid[0])-1 {
 		return 1
@@ -39,7 +39,7 @@ func pathCountRecursive(grid [][]int, row, col int) int {
 		return 0
 	}
 	// recursive case
-	return pathCountRecursive(grid, row+1, col) + pathCountRecursive(grid, row, col+1)
+	return PathCountRecursive(grid, row+1, col) + PathCountRecursive(grid, row, col+1)
 }
 
 /*
@@ -53,13 +53,13 @@ func allPathsRecursive(grid [][]int, row, col int, path [][]int) [][]int {
 	return 0
 }*/
 
-func main() {
+func GridPathExamples() {
 	grid := [][]int{
 		[]int{1, 1, 1, 1},
 		[]int{1, 0, 0, 0},
 	}
 	//var path [][]int
 	//fmt.Println(path)
-	//fmt.Println(isPath(grid))
-	fmt.Println(pathCountRecursive(grid, 0, 0))
+	//fmt.Println(IsPath(grid))
+	fmt.Println(PathCountRecursive(grid, 0, 0))
 }

@@ -1,4 +1,4 @@
-package main
+package dp
 
 import "fmt"
 
@@ -60,7 +60,7 @@ func bestSumMemo(sum int, numbers []int, memo map[int][]int) []int {
 	return memo[sum]
 }
 
-func main() {
+func BestSumExamples() {
 	// recursive
 	fmt.Println(bestSumRecursive(7, []int{5, 4, 3, 7}))
 	fmt.Println(bestSumRecursive(200, []int{7, 14}))

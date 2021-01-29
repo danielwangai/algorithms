@@ -1,4 +1,4 @@
-package main
+package dp
 
 import (
 	"fmt"
@@ -58,7 +58,7 @@ func repeatedValueArray(A []int, start, end int) int {
 	return repeatedValueArray(A, start, end)
 }
 
-func main() {
+func MagicIndexExamples() {
 	A := []int{1, 2, 3, 5, 5, 5, 7, 8, 8, 9}
 	fmt.Println(magicIndexRecursive(A))
 }

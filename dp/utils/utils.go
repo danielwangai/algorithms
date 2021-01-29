@@ -6,11 +6,18 @@ type Strings struct {
 }
 
 // helper method to initialize a 2D array
-func (s *Strings) Array2D(len1, len2 int) [][]int {
+func Array2D(r, c int) [][]int {
 	outer := make([][]int, 0)
-	inner := make([]int, len2)
-	for i := 0; i < len1; i++ {
+	inner := make([]int, c)
+	for i := 0; i < r; i++ {
 		outer = append(outer, inner)
 	}
 	return outer
+}
+
+func Max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }

@@ -1,4 +1,4 @@
-package main
+package dp
 
 import (
 	"fmt"
@@ -21,7 +21,7 @@ import (
 // that build up to form the target string, the resultant tree formed will be of height m i.e. the length
 // of the string. Also, each of the m stack frames (in the call stack) will have to store the created
 // suffix string of possibly length m in the worst hence the space complexity of O(m^2)
-func canConstruct(target string, wordBank []string) bool {
+func CanConstruct(target string, wordBank []string) bool {
 	if target == "" {
 		return true
 	}
@@ -30,12 +30,10 @@ func canConstruct(target string, wordBank []string) bool {
 			// use a word in the bank if possible
 			// i.e. if the word is a prefix of the target word
 			remTarget := strings.Split(target, w)
-			if len(remTarget) > 1 {
-				suffix := strings.Join(remTarget[1:], "")
-				if canConstruct(suffix, wordBank) == true {
+			suffix := strings.Join(remTarget[1:], "")
+			if CanConstruct(suffix, wordBank) == true {
 					return true
 				}
-			}
 		}
 	}
 	return false
@@ -43,7 +41,7 @@ func canConstruct(target string, wordBank []string) bool {
 
 // Time Complexity: O(n*m^2)
 // Space Complexity: O(m^2)
-func canConstructMemo(target string, wordBank []string, memo map[string]bool) bool {
+func CanConstructMemo(target string, wordBank []string, memo map[string]bool) bool {
 	if _, ok := memo[target]; ok {
 		return memo[target]
 	}
@@ -55,7 +53,7 @@ func canConstructMemo(target string, wordBank []string, memo map[string]bool) bo
 			remTarget := strings.Split(target, w)
 			if len(remTarget) > 1 {
 				suffix := strings.Join(remTarget[1:], "")
-				if canConstructMemo(suffix, wordBank, memo) == true {
+				if CanConstructMemo(suffix, wordBank, memo) == true {
 					memo[suffix] = true
 					return memo[suffix]
 				}
@@ -65,14 +63,14 @@ func canConstructMemo(target string, wordBank []string, memo map[string]bool) bo
 	return false
 }
 
-func main() {
+func CanConstructExamples() {
 	// recursive
-	fmt.Println(canConstruct("abcdef", []string{"ab", "abc", "cd", "def", "abcd"}))
-	fmt.Println(canConstruct("skateboard", []string{"bo", "rd", "ate", "t", "ska", "sk", "boar"}))
-	fmt.Println(canConstruct("enterapotentpot", []string{"a", "p", "ent", "enter", "ot", "o", "t"}))
+	fmt.Println(CanConstruct("abcdef", []string{"ab", "abc", "cd", "def", "abcd"}))
+	fmt.Println(CanConstruct("skateboard", []string{"bo", "rd", "ate", "t", "ska", "sk", "boar"}))
+	fmt.Println(CanConstruct("enterapotentpot", []string{"a", "p", "ent", "enter", "ot", "o", "t"}))
 
 	// memoized
-	fmt.Println(canConstructMemo("abcdef", []string{"ab", "abc", "cd", "def", "abcd"}, map[string]bool{}))
-	fmt.Println(canConstructMemo("skateboard", []string{"bo", "rd", "ate", "t", "ska", "sk", "boar"}, map[string]bool{}))
-	fmt.Println(canConstructMemo("enterapotentpot", []string{"a", "p", "ent", "enter", "ot", "o", "t"}, map[string]bool{}))
+	fmt.Println(CanConstructMemo("abcdef", []string{"ab", "abc", "cd", "def", "abcd"}, map[string]bool{}))
+	fmt.Println(CanConstructMemo("skateboard", []string{"bo", "rd", "ate", "t", "ska", "sk", "boar"}, map[string]bool{}))
+	fmt.Println(CanConstructMemo("enterapotentpot", []string{"a", "p", "ent", "enter", "ot", "o", "t"}, map[string]bool{}))
 }
