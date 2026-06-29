@@ -1,7 +1,6 @@
-package main
+package coin_change
 
 import (
-	"fmt"
 	"math"
 )
 
@@ -100,10 +99,4 @@ func generateArray(n int) []int {
 		memo = append(memo, n + 1)
 	}
 	return memo
-}
-
-func main() {
-	fmt.Println(minimumCoinsUsed(11, []int{5, 2, 1}))
-	fmt.Println(minCoinsRecursive(7, []int{5, 4, 3, 7}))
-	fmt.Println(minCoinsMemoized(7, []int{5, 4, 3, 7}, map[int][]int{}))
 }

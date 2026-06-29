@@ -1,6 +1,4 @@
-package main
-
-import "fmt"
+package recursion
 
 func isSubsequence(a, b string) bool {
 	if len(a) == 0 {
@@ -9,10 +7,10 @@ func isSubsequence(a, b string) bool {
 	if len(b) == 0 {
 		return false
 	}
-	return helper([]rune(a), []rune(b), 0, 0)
+	return subsequenceHelper([]rune(a), []rune(b), 0, 0)
 }
 
-func helper(a, b []rune, l, r int) bool {
+func subsequenceHelper(a, b []rune, l, r int) bool {
 	if l == len(a) {
 		return true
 	}
@@ -20,11 +18,7 @@ func helper(a, b []rune, l, r int) bool {
 		return false
 	}
 	if a[l] == b[r] {
-		return helper(a, b, l+1, r+1)
+		return subsequenceHelper(a, b, l+1, r+1)
 	}
-	return helper(a, b, l, r+1)
-}
-
-func main() {
-	fmt.Println(isSubsequence("cc", "bbcacdbac"))
+	return subsequenceHelper(a, b, l, r+1)
 }

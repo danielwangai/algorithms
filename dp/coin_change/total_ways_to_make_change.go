@@ -1,4 +1,4 @@
-package main
+package coin_change
 
 import (
 	"fmt"
@@ -33,8 +33,4 @@ func generate2D(rows, columns int) [][]int {
 		memo = append(memo, inner)
 	}
 	return memo
-}
-
-func main() {
-	fmt.Println(coinChange2(5, []int{1,2,3}))
 }

@@ -1,6 +1,4 @@
-package main
-
-import "fmt"
+package fibonacci
 
 // recursive solution
 // time complexity: O(2^n)
@@ -52,11 +50,4 @@ func topDown(n int) int {
 		a = temp
 	}
 	return a + b
-}
-
-func main() {
-	fmt.Println(fibRecursive(6))
-	fmt.Println(fibMemo(6, map[int]int{}))
-	fmt.Println(bottomUp(6, map[int]int{}))
-	fmt.Println(topDown(6))
 }

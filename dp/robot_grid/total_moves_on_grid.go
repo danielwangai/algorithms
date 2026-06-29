@@ -1,6 +1,4 @@
-package main
-
-import "fmt"
+package robot_grid
 
 // get total number of moves from top left to bottom right on a 2D grid
 
@@ -28,12 +26,3 @@ func recursive(grid [][]int, r, c int) int {
 //	}
 //	return totalMovesMemoized(grid, r + 1, c, memo) + totalMovesMemoized(grid, r, c + 1, memo)
 //}
-
-func main() {
-	grid := [][]int{
-		[]int{0, 0, 0},
-		[]int{0, 0, 0},
-		[]int{0, 0, 0},
-	}
-	fmt.Println(totalMoves(grid))
-}

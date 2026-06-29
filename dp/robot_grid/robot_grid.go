@@ -1,7 +1,4 @@
-package main
-
-import "fmt"
-
+package robot_grid
 
 // recursive approach
 // time complexity: O(2^r + c)
@@ -43,15 +40,4 @@ func memoized(grid [][]int, r, c int, memo map[[2]int]bool) bool {
 		return true
 	}
 	return false
-}
-
-func main() {
-	grid := [][]int{
-		[]int{0, 0, 0, 1, 0, 0},
-		[]int{0, 1, 0, 0, 0, 0},
-		[]int{0, 0, 1, 0, 0, 1},
-		[]int{0, 1, 0, 0, 0, 0},
-		[]int{0, 0, 0, 0, 1, 0},
-	}
-	fmt.Println(robotGrid(grid))
 }
